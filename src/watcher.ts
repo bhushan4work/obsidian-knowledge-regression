@@ -7,7 +7,7 @@ export class TestWatcher {
 	private view: KnowledgeRegressionView;
 	private affectedTestIds: Set<string> = new Set();
 	private needsFullRefresh = false;
-	private eventRefs: EventRef[] = [];
+	private eventRefs: Array<{ manager: { offref: (ref: EventRef) => void }, ref: EventRef }> = [];
 	
 	private debouncedRun: () => void;
 
@@ -26,27 +26,27 @@ export class TestWatcher {
 	start() {
 		const { vault, metadataCache } = this.plugin.app;
 
-		this.eventRefs.push(
-			metadataCache.on('changed', (file) => this.handleFileChange(file))
-		);
-		this.eventRefs.push(
-			vault.on('rename', (file, oldPath) => this.handleRename(file, oldPath))
-		);
-		this.eventRefs.push(
-			vault.on('delete', (file) => this.handleFileChange(file))
-		);
-		this.eventRefs.push(
-			vault.on('create', (file) => this.handleFileChange(file))
-		);
-		
-		for (const ref of this.eventRefs) {
-			this.plugin.registerEvent(ref);
-		}
+		this.eventRefs.push({
+			manager: metadataCache,
+			ref: metadataCache.on('changed', (file) => this.handleFileChange(file))
+		});
+		this.eventRefs.push({
+			manager: vault,
+			ref: vault.on('rename', (file, oldPath) => this.handleRename(file, oldPath))
+		});
+		this.eventRefs.push({
+			manager: vault,
+			ref: vault.on('delete', (file) => this.handleFileChange(file))
+		});
+		this.eventRefs.push({
+			manager: vault,
+			ref: vault.on('create', (file) => this.handleFileChange(file))
+		});
 	}
 
 	stop() {
-		for (const ref of this.eventRefs) {
-			this.plugin.app.workspace.offref(ref); // workspace.offref works for all EventRefs
+		for (const { manager, ref } of this.eventRefs) {
+			manager.offref(ref);
 		}
 		this.eventRefs = [];
 	}
