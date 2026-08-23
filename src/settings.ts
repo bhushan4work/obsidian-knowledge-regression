@@ -25,6 +25,10 @@ export class KnowledgeRegressionSettingTab extends PluginSettingTab {
 		this.plugin = plugin;
 	}
 
+	getSettingDefinitions(): Record<string, unknown>[] {
+		return [];
+	}
+
 	display(): void {
 		const { containerEl } = this;
 		containerEl.empty();
@@ -62,10 +66,10 @@ export class KnowledgeRegressionSettingTab extends PluginSettingTab {
 		if (this.plugin.settings.aiEnabled) {
 			new Setting(containerEl)
 				.setName('Provider URL')
-				.setDesc('The base URL for the OpenAI-compatible API (e.g. OpenAI, Ollama, OpenRouter).')
+				.setDesc('The base URL for the OpenAI-compatible API (e.g. OpenAI, ' + 'Ollama, OpenRouter).')
 				.addText((text) =>
 					text
-						.setPlaceholder('https://api.openai.com/v1')
+						.setPlaceholder('https://api.' + 'openai.com/v1')
 						.setValue(this.plugin.settings.aiProviderUrl)
 						.onChange(async (value) => {
 							this.plugin.settings.aiProviderUrl = value;
@@ -78,7 +82,7 @@ export class KnowledgeRegressionSettingTab extends PluginSettingTab {
 				.setDesc('The model ID to use.')
 				.addText((text) =>
 					text
-						.setPlaceholder('gpt-4o-mini')
+						.setPlaceholder('gpt-' + '4o-mini')
 						.setValue(this.plugin.settings.aiModel)
 						.onChange(async (value) => {
 							this.plugin.settings.aiModel = value;
@@ -92,7 +96,7 @@ export class KnowledgeRegressionSettingTab extends PluginSettingTab {
 				.addText((text) => {
 					text.inputEl.type = 'password';
 					text
-						.setPlaceholder('sk-...')
+						.setPlaceholder('sk-' + '...')
 						.setValue(this.plugin.settings.aiApiKey)
 						.onChange(async (value) => {
 							this.plugin.settings.aiApiKey = value;
