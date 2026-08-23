@@ -36,7 +36,7 @@ export default class KnowledgeRegressionPlugin extends Plugin {
 	}
 
 	onunload() {
-		// Obsidian auto-cleans up views, commands, and settings tabs
+		// Empty
 	}
 
 	async activateView() {
