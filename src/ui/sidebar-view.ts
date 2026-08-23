@@ -3,6 +3,8 @@ import { loadTestsFromFolder, type LoadedTests } from '../loader';
 import { runTestSuite } from '../test-runner';
 import type { TestSuiteResult } from '../types';
 import MyPlugin from '../main';
+import { AiConsentModal, AiResultModal } from './ai-modal';
+import { buildExplanationPrompt, buildGeneratorPrompt } from '../ai/prompts';
 
 export const VIEW_TYPE_KNOWLEDGE_REGRESSION = 'knowledge-regression-view';
 
@@ -144,6 +146,23 @@ export class KnowledgeRegressionView extends ItemView {
 			void this.runAllTests();
 		});
 
+		if (this.plugin.settings.aiEnabled) {
+			const generateBtn = actionsEl.createDiv('clickable-icon nav-action-button');
+			generateBtn.setAttribute('aria-label', 'Generate test with AI');
+			setIcon(generateBtn, 'sparkles');
+			generateBtn.addEventListener('click', () => {
+				new AiConsentModal(
+					this.app,
+					this.plugin,
+					'generate',
+					buildGeneratorPrompt(''),
+					(result) => {
+						new AiResultModal(this.app, 'Generated test', result).open();
+					}
+				).open();
+			});
+		}
+
 		if (!this.loadedTests) {
 			container.createDiv('pane-empty').setText('Loading tests...');
 			return;
@@ -251,6 +270,21 @@ export class KnowledgeRegressionView extends ItemView {
 						if (index < result.affectedNotes.length - 1) {
 							notesEl.appendText(', ');
 						}
+					});
+				}
+
+				if (result.status === 'failed' && this.plugin.settings.aiEnabled) {
+					const aiExplainBtn = detailsEl.createEl('button', { text: 'Ask AI why this failed', cls: 'kr-ai-explain-btn' });
+					aiExplainBtn.addEventListener('click', () => {
+						new AiConsentModal(
+							this.app,
+							this.plugin,
+							'explain',
+							buildExplanationPrompt(test.name, result.explanation, result.affectedNotes),
+							(aiResult) => {
+								new AiResultModal(this.app, 'AI explanation', aiResult).open();
+							}
+						).open();
 					});
 				}
 			}
