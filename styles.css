@@ -1,8 +1,78 @@
-/*
+/* Knowledge Regression Plugin Styles */
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.knowledge-regression-container {
+	padding: var(--size-4);
+}
 
-If your plugin does not need CSS, delete this file.
+.kr-summary {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
 
-*/
+.kr-section-header {
+	margin-top: 10px;
+	margin-bottom: 6px;
+}
+
+.kr-error-item {
+	color: var(--text-error);
+	font-size: var(--font-ui-smaller);
+	margin-bottom: 8px;
+}
+
+.kr-test-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.kr-test-item {
+	padding: 8px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+}
+
+.kr-test-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 4px;
+}
+
+.kr-test-title-container {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.kr-test-title {
+	font-weight: var(--font-bold);
+}
+
+.kr-icon-disabled, .kr-icon-not-run {
+	color: var(--text-muted);
+}
+
+.kr-icon-passed {
+	color: var(--text-success);
+}
+
+.kr-icon-failed {
+	color: var(--text-error);
+}
+
+.kr-icon-error {
+	color: var(--text-warning);
+}
+
+.kr-test-details {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+
+.kr-test-notes {
+	margin-top: 4px;
+}

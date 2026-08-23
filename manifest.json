@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
-	"version": "1.0.0",
-	"minAppVersion": "1.0.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"id": "knowledge-regression",
+	"name": "Knowledge Regression",
+	"version": "0.1.0",
+	"minAppVersion": "1.7.2",
+	"description": "Define and run deterministic tests against your vault to catch knowledge regressions.",
+	"author": "Bhushan Agrawal",
+	"authorUrl": "https://github.com/bhushan4work",
 	"isDesktopOnly": false
 }
