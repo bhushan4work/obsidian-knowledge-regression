@@ -15,6 +15,7 @@ export default defineConfig(
 		'tsconfig.json',
 	]),
 	{
+		files: ['**/*.ts', '**/*.mts'],
 		languageOptions: {
 			globals: {
 				...globals.browser,
