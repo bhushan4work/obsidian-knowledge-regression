@@ -1,7 +1,7 @@
 {
 	"id": "knowledge-regression",
 	"name": "Knowledge Regression",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "1.7.2",
 	"description": "Define and run deterministic tests against your vault to catch knowledge regressions.",
 	"author": "Bhushan Agrawal",

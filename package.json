@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-knowledge-regression",
-	"version": "1.0.0",
+	"version": "1.0.1" ,
 	"description": "Define and run deterministic tests against your Obsidian vault to catch knowledge regressions.",
 	"main": "main.js",
 	"type": "module",
